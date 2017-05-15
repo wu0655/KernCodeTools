@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../ToolsByJava.iml" filepath="$PROJECT_DIR$/../ToolsByJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../amssfiler/amssfiler.iml" filepath="$PROJECT_DIR$/../amssfiler/amssfiler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../app/app.iml" filepath="$PROJECT_DIR$/../app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../gitsize/gitsize.iml" filepath="$PROJECT_DIR$/../gitsize/gitsize.iml" />
+      <module fileurl="file://$PROJECT_DIR$/parsesystemmap.iml" filepath="$PROJECT_DIR$/parsesystemmap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../sortkernbuild/sortkernbuild.iml" filepath="$PROJECT_DIR$/../sortkernbuild/sortkernbuild.iml" />
+    </modules>
+  </component>
+</project>
