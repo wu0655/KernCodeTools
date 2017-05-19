@@ -7,8 +7,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import static com.example.MainTest.printUsuage;
@@ -26,6 +30,8 @@ public class BuildAnalysis {
     String m_curr_path;
     String m_out;
     String m_map_path;
+
+    ArrayList<String> m_infoIds = null;
 
     Map<String, String> m_c_map = new HashMap<>();
     Map<String, String> m_h_map = new HashMap<>();
@@ -105,12 +111,39 @@ public class BuildAnalysis {
             parseCmdFile(name);
         }
 
-        m_total = m_c_map.size() + m_h_map.size();
-        flush_clear_map(m_c_map, false, "source file in cmd file");
-        flush_clear_map(m_h_map, true, "header file in cmd file");
-
+        //m_total = m_c_map.size() + m_h_map.size();
+        //flush_clear_map(m_c_map, false, "source file in cmd file");
+        //flush_clear_map(m_h_map, true, "header file in cmd file");
+        m_total = sortbyName();
         //dump(m_other_map);
         return true;
+    }
+
+    public int sortbyName() {
+        m_infoIds =  new ArrayList<String>();
+
+        m_infoIds.addAll(m_h_map.keySet());
+        m_infoIds.addAll(m_c_map.keySet());
+        Collections.sort(m_infoIds);
+        flush_ArrayList(m_infoIds, "");
+        /*
+        Collections.sort(m_infoIds, new Comparator<Map.Entry<String, Long>>() {
+            public int compare(Map.Entry<String, Long> o1, Map.Entry<String, Long> o2) {
+                int ret;
+                String t1 = o1.getKey();
+                String t2 = o2.getKey();
+                if (t2 > t1)
+                    ret = -1;
+                else if (t2 == t1)
+                    ret = 0;
+                else
+                    ret = 1;
+                return ret;
+                //return (o1.getKey()).toString().compareTo(o2.getKey());
+            }
+        });
+        */
+        return m_infoIds.size();
     }
 
     int handle_deps(String line) {
@@ -264,6 +297,33 @@ public class BuildAnalysis {
 
         if (is_clear)
             map.clear();
+        return count;
+    }
+
+    public int flush_ArrayList(ArrayList<String> list, String str) {
+        int count = 0;
+        String out_path = m_out;
+
+        try {
+            // write string to file
+            FileWriter writer = new FileWriter(out_path);
+            BufferedWriter bw = new BufferedWriter(writer);
+            if (str != null)
+                bw.write("#" + str + "++begin++\n");
+            for (String key : list) {
+                bw.write(key + "\n");
+                count++;
+            }
+            if (str != null)
+                bw.write("#" + str + "++end++\n");
+            bw.close();
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (DEBUG)
+            System.out.println("flush num =" + list.size());
         return count;
     }
 
