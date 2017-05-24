@@ -1,5 +1,6 @@
 # KernCodeTools
-tools about kernel code
+tools about kernel code. 
+This project is developed by Android Studio. You could use jar file under out diretory or compile it by yourself.
 
 1.  parsesystemmap.jar
     parse a special system map and generate the built source code. some file may missed.
